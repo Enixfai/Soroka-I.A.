@@ -59,9 +59,7 @@ class RightTriangle:
         """Переопределение сравнения объектов (по равенству набора сторон)"""
         if not isinstance(other, RightTriangle):
             return False
-        return sorted([self._a, self._b, self._c]) == sorted(
-            [other.a, other.b, other.c]
-        )
+        return sorted([self._a, self._b, self._c]) == sorted([other.a, other.b, other.c])
 
 
 tri1 = RightTriangle(3, 4, 5)

@@ -1,5 +1,6 @@
 def find_mode(sequence):
-    if not sequence: return None
+    if not sequence:
+        return None
 
     # Считаем частоту каждого уникального элемента
     counts = {x: sequence.count(x) for x in set(sequence)}

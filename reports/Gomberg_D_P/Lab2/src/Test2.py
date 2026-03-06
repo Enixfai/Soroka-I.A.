@@ -31,9 +31,7 @@ class Staff:
         if 0 <= assignment_index < len(patient.assignments):
             assignment = patient.assignments[assignment_index]
             assignment.is_completed = True
-            print(
-                f"Сотрудник {self.name} выполнил: {assignment.description} для {patient.name}"
-            )
+            print(f"Сотрудник {self.name} выполнил: {assignment.description} для {patient.name}")
 
 
 class Doctor(Staff):
@@ -60,9 +58,7 @@ class Patient:
         self.discharge_reason = None
 
     def __str__(self):
-        status = (
-            f"Выписан ({self.discharge_reason})" if self.is_discharged else "На лечении"
-        )
+        status = f"Выписан ({self.discharge_reason})" if self.is_discharged else "На лечении"
         return f"Пациент: {self.name} | Статус: {status} | Назначений: {len(self.assignments)}"
 
 
