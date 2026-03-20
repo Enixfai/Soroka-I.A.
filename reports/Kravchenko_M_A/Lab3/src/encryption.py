@@ -187,14 +187,8 @@ Hello, world! This is a test file for encryption.
     print("Создан файл sample.txt")
 
 
-def main():
-    """Основная функция."""
-    print("=" * 60)
-    print("ШИФРОВАНИЕ ТЕКСТОВОГО ФАЙЛА")
-    print("=" * 60)
-
-    create_sample_file()
-
+def select_strategy():
+    """Выбрать стратегию шифрования."""
     print("\nДоступные алгоритмы шифрования:")
     print("1. Удаление гласных")
     print("2. Шифр Цезаря (сдвиг 4)")
@@ -205,24 +199,22 @@ def main():
     choice = input("\nВыберите алгоритм (1-5): ")
 
     if choice == "1":
-        strategy = VowelRemovalStrategy()
-    elif choice == "2":
-        strategy = CaesarCipherStrategy(4)
-    elif choice == "3":
+        return VowelRemovalStrategy()
+    if choice == "2":
+        return CaesarCipherStrategy(4)
+    if choice == "3":
         shift = int(input("Введите сдвиг (1-25): "))
-        strategy = CaesarCipherStrategy(shift)
-    elif choice == "4":
-        strategy = XorStrategy("secret")
-    elif choice == "5":
+        return CaesarCipherStrategy(shift)
+    if choice == "4":
+        return XorStrategy("secret")
+    if choice == "5":
         key = input("Введите ключ: ")
-        strategy = XorStrategy(key)
-    else:
-        print("Неверный выбор")
-        return
+        return XorStrategy(key)
+    return None
 
-    encryptor = FileEncryptor(strategy)
-    print(f"\nВыбран алгоритм: {encryptor.get_strategy_name()}")
 
+def process_encryption(encryptor):
+    """Обработать шифрование."""
     print("\n1. Зашифровать sample.txt")
     print("2. Расшифровать")
     action = input("Выберите действие (1-2): ")
@@ -239,6 +231,25 @@ def main():
             print(file_in.read()[:200])
     else:
         print("Неверный выбор")
+
+
+def main():
+    """Основная функция."""
+    print("=" * 60)
+    print("ШИФРОВАНИЕ ТЕКСТОВОГО ФАЙЛА")
+    print("=" * 60)
+
+    create_sample_file()
+
+    strategy = select_strategy()
+    if strategy is None:
+        print("Неверный выбор")
+        return
+
+    encryptor = FileEncryptor(strategy)
+    print(f"\nВыбран алгоритм: {encryptor.get_strategy_name()}")
+
+    process_encryption(encryptor)
 
 
 if __name__ == "__main__":
