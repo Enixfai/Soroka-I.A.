@@ -1,28 +1,25 @@
 """
-Модуль для поиска индексов двух чисел, сумма которых равна целевому числу.
+Модуль для проверки равенства всех элементов последовательности.
 
-Пользователь вводит список чисел и целевое значение.
-Программа возвращает индексы элементов.
+Запрашивает у пользователя числа, проверяет их на идентичность
+и выводит результат: "равны" или "не равны".
 """
 
 
-def find_two_sum(nums: list[int], target: int) -> list[int]:
+def are_elements_equal(numbers: list[int]) -> str:
     """
-    Ищет индексы двух чисел, сумма которых равна target.
+    Проверяет, все ли элементы в списке одинаковые.
 
-    :param nums: Список целых чисел
-    :param target: Целевое число
-    :return: Список из двух индексов
+    :param numbers: Список целых чисел
+    :return: Строка "равны" или "не равны"
     """
-    prev_map = {}  # значение : индекс
+    if not numbers:
+        return "пусто"
 
-    for i, n in enumerate(nums):
-        diff = target - n
-        if diff in prev_map:
-            return [prev_map[diff], i]
-        prev_map[n] = i
+    if len(set(numbers)) == 1:
+        return "равны"
 
-    return []
+    return "не равны"
 
 
 def main() -> None:
@@ -30,11 +27,10 @@ def main() -> None:
     Точка входа в программу.
     """
     try:
-        nums = list(map(int, input("Введите список чисел nums через пробел: ").split()))
-        target = int(input("Введите целевое число target: "))
-
-        result = find_two_sum(nums, target)
-        print(f"Output: {result}")
+        user_input = input("Введите числа через пробел: ")
+        nums = list(map(int, user_input.split()))
+        result = are_elements_equal(nums)
+        print(result)
     except ValueError:
         print("Ошибка: вводите только целые числа.")
 
